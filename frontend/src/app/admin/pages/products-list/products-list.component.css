@@ -1,0 +1,31 @@
+.sub-header {
+  display: flex;
+  padding: 0px 5px;
+}
+
+.sub-header > app-search-bar {
+  flex: 1;
+}
+
+.sub-header > .add-btn-container {
+  display: flex;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+}
+
+.name-area {
+  display: flex;
+  align-items: center;
+}
+
+.thumbnail {
+  width: 50px;
+  padding-right: 10px;
+}
+
+.not-found-message {
+  text-align: center;
+}

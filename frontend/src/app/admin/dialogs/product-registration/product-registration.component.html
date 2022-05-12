@@ -1,0 +1,94 @@
+<mat-dialog-content>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <mat-toolbar>
+      <span>{{ title }}</span>
+    </mat-toolbar>
+
+    <mat-card>
+      <mat-card-content>
+        <div class="display-flex">
+          <div class="flex-1 pr-10">
+            <mat-form-field appearance="fill" class="width-100">
+              <mat-label>Nome</mat-label>
+              <input type="text" formControlName="name" matInput>
+              <mat-error *ngIf="productForm.get('name')?.invalid">{{ showInputError('name') }}</mat-error>
+            </mat-form-field>
+
+            <br><br>
+
+            <mat-form-field appearance="fill" class="pr-10">
+              <mat-label>Preço</mat-label>
+              <input type="tel" formControlName="normalPrice" matInput prefix="R$" mask="separator.2">
+              <mat-error *ngIf="productForm.get('normalPrice')?.invalid">{{ showInputError('normalPrice') }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Preço promocional</mat-label>
+              <input type="tel" formControlName="promotionalPrice" matInput prefix="R$" mask="separator.2">
+              <mat-error *ngIf="productForm.get('promotionalPrice')?.invalid">{{ showInputError('promotionalPrice') }}</mat-error>
+            </mat-form-field>
+
+            <br><br>
+
+            <mat-form-field appearance="fill" class="pr-10">
+              <mat-label>Estoque</mat-label>
+              <input type="number" formControlName="stock" matInput>
+              <mat-error *ngIf="productForm.get('stock')?.invalid">{{ showInputError('stock') }}</mat-error>
+            </mat-form-field>
+
+            <mat-slide-toggle color="primary" formControlName="status" labelPosition="before">Status</mat-slide-toggle>
+
+            <br><br>
+
+            <mat-form-field appearance="fill" class="width-100">
+              <mat-label>Categoria</mat-label>
+              <mat-select formControlName="categoryId">
+                <mat-option *ngFor="let category of categories" [value]="category.id">
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="productForm.get('categoryId')?.invalid">{{ showInputError('categoryId') }}</mat-error>
+            </mat-form-field>
+
+            <br><br>
+          </div>
+
+          <div>
+            <mat-card>
+              <mat-card-subtitle class="text-center">
+                <mat-label>Imagem*</mat-label>
+              </mat-card-subtitle>
+
+              <mat-card-content>
+                <img mat-card-image class="product-img" [src]="imgPath">
+              </mat-card-content>
+
+              <mat-card-actions class="text-center">
+                <input type="file" #fileInput (change)="onChangeImg($event)" class="display-none">
+
+                <button type="button" color="warn" mat-icon-button (click)="onDelImgClick()" *ngIf="!isImgNotFound()">
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+                <button type="button" mat-raised-button (click)="fileInput.click()">
+                  <mat-icon>add_photo_alternate</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+
+        <mat-form-field appearance="fill" class="width-100">
+          <mat-label>Descrição</mat-label>
+          <textarea formControlName="description" rows="4" matInput></textarea>
+          <mat-error *ngIf="productForm.get('description')?.invalid">{{ showInputError('description') }}</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-stroked-button type="button" mat-dialog-close>Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">Salvar</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</mat-dialog-content>

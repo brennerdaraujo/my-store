@@ -1,0 +1,31 @@
+<mat-dialog-content *ngIf="product">
+    <mat-card>
+      <mat-card-content class="display-flex">
+        <div class="flex-1">
+          <img class="img" mat-card-image [src]="product.imgPath">
+        </div>
+
+        <div class="flex-1">
+          <h3>{{ product.name }}</h3>
+          <h4>
+            {{ product.price.normal }}
+            <span *ngIf="product.price.promotional > 0">
+              &nbsp;&nbsp;{{ product.price.promotional }}
+            </span>
+          </h4>
+
+          <p>Detalhes:</p>
+          <hr>
+          <p>{{ product.description }}</p>
+
+          <div class="display-flex justify-space-around align-items-center">
+            <app-counter-input></app-counter-input>
+
+            <div>
+              <button mat-raised-button color="primary">Adicionar ao carrinho</button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</mat-dialog-content>

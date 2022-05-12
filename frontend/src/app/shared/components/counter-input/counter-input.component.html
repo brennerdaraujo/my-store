@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill">
+  <button matPrefix mat-icon-button tabindex="-1" (click)="counter = counter - 1"
+    [disabled]="counter == 0">
+    <mat-icon>remove_circle_outline</mat-icon>
+  </button>
+  <input matInput type="tel" class="text-center" [(ngModel)]="counter">
+  <button matSuffix mat-icon-button (click)="counter = counter + 1">
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
+</mat-form-field>

@@ -1,0 +1,20 @@
+<div *ngIf="product">
+  <mat-card (click)="onProductClick(product)"
+    (mouseover)="isHovered = true"
+    (mouseout)="isHovered = false"
+    [class.mat-elevation-z2]="!isHovered"
+    [class.mat-elevation-z8]="isHovered">
+    <img mat-card-image [src]="product.imgPath">
+
+    <mat-card-content class="text-center">
+      <p><strong>{{ product.name }}</strong></p>
+      <p class="opacity-5">{{ product.category?.name }}</p>
+      <p>
+        {{ product.price.normal | currency:'BRL' }}
+        <span *ngIf="product.price.promotional > 0">
+          &nbsp;&nbsp; {{ product.price.promotional | currency:'BRL' }}
+        </span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
