@@ -2,3 +2,9 @@ frontend/node_modules
 frontend/.angular
 frontend/.browserslistrc
 frontend/.editorconfig
+
+backend/node_modules
+backend/.editorconfig
+backend/.eslintignore
+backend/.eslintrc.json
+backend/prettier.config.js
