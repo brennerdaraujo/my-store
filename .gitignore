@@ -8,3 +8,6 @@ backend/.editorconfig
 backend/.eslintignore
 backend/.eslintrc.json
 backend/prettier.config.js
+backend/src/.dbconfig.ts
+
+.vscode
