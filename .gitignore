@@ -12,5 +12,6 @@ backend/.eslintignore
 backend/.eslintrc.json
 backend/prettier.config.js
 backend/src/database/*.sqlite
+backend/src/swagger/swagger_output.json
 
 .vscode
