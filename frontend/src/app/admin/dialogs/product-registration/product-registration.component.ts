@@ -1,12 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { notFoundImgPath } from 'src/app/core/consts';
 
 import { Category, Product } from 'src/app/core/models';
 
-import { FormErrorsService } from 'src/app/core/services';
+import { remoteUrlToBase64 } from 'src/app/core/functions';
+
+import {
+  CategoriesService,
+  DialogService,
+  FormErrorsService,
+  ProductsService,
+  SnackBarService
+} from 'src/app/core/services';
 
 @Component({
   selector: 'app-product-registration',
@@ -14,68 +19,101 @@ import { FormErrorsService } from 'src/app/core/services';
   styleUrls: ['./product-registration.component.css']
 })
 export class ProductRegistrationComponent implements OnInit {
-  @Input() product: Product | null = null;
+  @Input() product!: Product;
 
-  title: string = '';
-  imgPath: SafeResourceUrl = notFoundImgPath;
-  categories: Category[] = [];
-
-  productForm = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(150)
-    ]),
-    img: new FormControl('', [
-      Validators.required
-    ]),
-    categoryId: new FormControl('', [
-      Validators.required
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(2000)
-    ]),
-    stock: new FormControl('', [
-      Validators.required,
-      Validators.min(0)
-    ]),
-    status: new FormControl(true, [
-      Validators.required
-    ]),
-    promotionalPrice: new FormControl('', [
-      Validators.required,
-      Validators.min(0)
-    ]),
-    normalPrice: new FormControl('', [
-      Validators.required,
-      Validators.min(0)
-    ]),
-  });
+  categories: Category[];
+  imgError: string;
+  isLoading: boolean;
+  productForm: FormGroup;
+  title: string;
 
   constructor(
+    private categoriesService: CategoriesService,
+    private dialogService: DialogService,
     private formErrorsService: FormErrorsService,
-    private sanitizer: DomSanitizer
-  ) { }
+    private productsService: ProductsService,
+    private snackBarService: SnackBarService
+  ) {
+    this.categories = [];
+    this.imgError = '';
+    this.isLoading = false;
+    this.productForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(150)
+      ]),
+      base64_img: new FormControl('', [
+        Validators.required
+      ]),
+      category_id: new FormControl('', [
+        Validators.required
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(2000)
+      ]),
+      stock: new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+      ]),
+      status: new FormControl(true, [
+        Validators.required
+      ]),
+      promotional_price: new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+      ]),
+      normal_price: new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+      ]),
+    });
+    this.title = '';
+  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.title = this.product ? 'Editar produto' : 'Adicionar produto';
 
     if (this.product) {
-      this.imgPath = this.product.imgPath;
       this.productForm.patchValue({
         name: this.product.name,
-        categoryId: this.product.category.id,
+        base64_img: await remoteUrlToBase64(this.getCompleteImgPath()),
+        category_id: this.product.category_id,
         description: this.product.description,
         stock: this.product.stock,
         status: this.product.status,
-        promotionalPrice: this.product.price.promotional,
-        normalPrice: this.product.price.normal,
+        promotional_price: this.product.promotional_price,
+        normal_price: this.product.normal_price,
       });
     }
+
+    this.isLoading = true;
+    this.categoriesService.getAll()
+      .subscribe({
+        next: (categories) => {
+          this.isLoading = false;
+          this.categories = categories;
+        },
+        error: this.handleError
+      });
   }
 
-  isImgNotFound(): boolean {
-    return this.imgPath === notFoundImgPath;
+  private handleError = (error: any) => {
+    this.isLoading = false;
+    this.snackBarService.open(
+      error.error.message || error.message,
+      'Fechar',
+      true
+    );
+    console.error(error);
+  }
+
+  getCompleteImgPath(): string {
+    if (!this.product) {
+      return '';
+    }
+
+    return this.productsService.completeImgPath(this.product.img_path);
   }
 
   showInputError(inputName: string) {
@@ -84,20 +122,41 @@ export class ProductRegistrationComponent implements OnInit {
     return this.formErrorsService.getErrorMessage(errors);
   }
 
+  onChangeImg(imgPath: string) {
+    this.productForm.get('base64_img')?.setValue(imgPath);
+    this.imgError = '';
+  }
+
+  onDelImg() {
+    this.productForm.get('base64_img')?.setValue('');
+    this.imgError = '';
+  }
+
   onSubmit() {
+    this.isLoading = true;
 
-  }
+    if (!this.product) {
+      this.productsService.add(this.productForm.value)
+      .subscribe({
+        next: (_) => {
+          this.isLoading = false;
+          this.dialogService.close();
+          this.snackBarService.open('Produto adicionado com sucesso');
+        },
+        error: this.handleError
+      });
 
-  onChangeImg(event: Event) {
-    const files = (event.target as HTMLInputElement).files;
-
-    if (files && files.length) {
-      const file = files[0];
-      this.imgPath = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(file));
+      return;
     }
-  }
 
-  onDelImgClick() {
-    this.imgPath = notFoundImgPath;
+    this.productsService.update(this.product.id, this.productForm.value)
+      .subscribe({
+        next: (_) => {
+          this.isLoading = false;
+          this.dialogService.close();
+          this.snackBarService.open('Produto atualizado com sucesso');
+        },
+        error: this.handleError
+      });
   }
 }

@@ -1,0 +1,23 @@
+<mat-card [class.card-error]="errorOccurred">
+  <mat-card-subtitle class="text-center">
+    <mat-label>Imagem*</mat-label>
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <img mat-card-image class="product-img" [src]="imgPath">
+  </mat-card-content>
+
+  <mat-card-actions class="text-center">
+    <input type="file" #fileInput accept="image/*" (change)="onChangeImage($event)"
+      class="display-none">
+
+    <button type="button" color="warn" mat-icon-button (click)="onDelImgClick()"
+      *ngIf="!isImgNotFound()">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button type="button" mat-raised-button (click)="fileInput.click()">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

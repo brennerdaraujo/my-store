@@ -1,7 +1,18 @@
-<app-header title="Listagem de produtos"></app-header>
+<app-header title="My Store" [showLogo]="true" [buttons]="[adminButton]"></app-header>
 
-<div class="products-container">
-  <div class="product-container" *ngFor="let product of products">
-    <app-product-card [product]="product"></app-product-card>
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div class="display-flex justify-center">
+  <div class="products-container" [class.justify-center]="!products.length">
+    <div class="product-container" *ngFor="let product of products">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+
+    <div *ngIf="!products.length" class="padding-10 opacity-5">
+      <p>Nenhum produto encontrado.</p>
+    </div>
   </div>
 </div>
+
+<mat-paginator [length]="pag.length" [pageSize]="pag.pageSize" (page)="getProducts($event)"
+[showFirstLastButtons]="true" class="display-flex justify-center"></mat-paginator>

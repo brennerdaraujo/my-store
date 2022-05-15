@@ -5,6 +5,7 @@ import './database';
 
 import handleErrors from './middlewares/handleErrors';
 import { handlePublicDir } from './middlewares/handlePublicDir';
+import { setHeaders } from './middlewares/setHeaders';
 import { routes } from './routes';
 
 // Check if public directory exists and if not, create it
@@ -12,6 +13,7 @@ handlePublicDir();
 
 const app = express();
 
+app.use(setHeaders);
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 app.use(express.json({ limit: '5mb' }));
 app.use(routes);

@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FormErrorsService {
-  // TODO Terminar de preencher os erros
   getErrorMessage(errors: any): string {
     if (errors['required'])
       return 'Campo obrigatório.';
@@ -14,6 +13,9 @@ export class FormErrorsService {
 
     if (errors['min'])
       return 'Valor inválido.';
+
+    if (errors['maxlength'])
+      return `Campo não pode ter mais de ${errors['maxlength'].requiredLength} caracteres.`;
 
     return '';
   }

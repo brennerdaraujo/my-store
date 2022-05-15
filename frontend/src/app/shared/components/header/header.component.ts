@@ -6,5 +6,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  @Input() title: string = '';
+  @Input() buttons: {
+    label: string;
+    icon?: string;
+    onClick: Function;
+  }[];
+  @Input() showLogo: boolean;
+  @Input() title: string;
+
+  constructor() {
+    this.buttons = [];
+    this.showLogo = false;
+    this.title = '';
+  }
 }

@@ -5,6 +5,7 @@ import { ProductValidation } from '../validations/ProductValidation';
 interface IRequest {
   skip: any;
   limit: any;
+  filter: any;
 }
 
 class GetProductsService {

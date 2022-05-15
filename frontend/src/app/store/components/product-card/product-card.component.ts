@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 
 import { Product } from 'src/app/core/models';
 
-import { DialogService } from 'src/app/core/services';
+import { DialogService, ProductsService } from 'src/app/core/services';
 
-import { ProductDetailsComponent } from '../../dialogs/product-details/product-details.component';
+import { ProductDetailsComponent } from '../../dialogs';
 
 @Component({
   selector: 'app-product-card',
@@ -12,16 +12,23 @@ import { ProductDetailsComponent } from '../../dialogs/product-details/product-d
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input() product: Product | null = null;
+  @Input() product!: Product;
 
-  isHovered: boolean = false;
+  isHovered: boolean;
 
   constructor(
-    private dialogService: DialogService
-  ) {}
+    private dialogService: DialogService,
+    private productsService: ProductsService
+  ) {
+    this.isHovered = false;
+  }
 
   onProductClick(product: Product) {
     const dialoogRef = this.dialogService.open(ProductDetailsComponent);
     dialoogRef.componentInstance.product = product;
+  }
+
+  getCompleteImgPath(imgPath: string): string {
+    return this.productsService.completeImgPath(imgPath);
   }
 }

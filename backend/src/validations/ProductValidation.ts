@@ -14,6 +14,7 @@ interface IProduct {
 interface IGetProducts {
   skip: number;
   limit: number;
+  filter: string;
 }
 
 export class ProductValidation {
@@ -88,7 +89,8 @@ export class ProductValidation {
   validateOnGetProducts(request: any): IGetProducts {
     const params = {
       skip: parseInt(request.skip, 10) || 0,
-      limit: parseInt(request.limit, 10) || 0
+      limit: parseInt(request.limit, 10) || 0,
+      filter: request.filter || ''
     };
 
     if (params.limit < 0) {

@@ -6,7 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent {
+  @Input() title: string;
+  @Input() content: string;
 
-  @Input() title: string = '';
-  @Input() content: string = '';
+  constructor() {
+    this.title = '';
+    this.content = '';
+  }
 }

@@ -1,28 +1,55 @@
-<mat-dialog-content *ngIf="product">
+<mat-toolbar class="display-flex justify-space-between" color="primary" mat-dialog-title>
+  <span>Detalhes do produto</span>
+  <button mat-icon-button type="button" [mat-dialog-close]="false" tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content>
     <mat-card>
       <mat-card-content class="display-flex">
-        <div class="flex-1">
-          <img class="img" mat-card-image [src]="product.imgPath">
+        <div class="flex-1 img-container display-flex justify-center align-items-center">
+          <img class="img" [src]="getCompleteImgPath(product.img_path)">
         </div>
 
-        <div class="flex-1">
-          <h3>{{ product.name }}</h3>
-          <h4>
-            {{ product.price.normal }}
-            <span *ngIf="product.price.promotional > 0">
-              &nbsp;&nbsp;{{ product.price.promotional }}
-            </span>
-          </h4>
+        <div class="flex-1 pl-10 display-flex justify-space-around flex-column">
+          <div>
+            <h3>
+              <strong>{{ product.name }}</strong>
+              <br>
+              <span class="opacity-5">{{ product.category.name }}</span>
+            </h3>
+            <h4 class="text-right">
+              <ng-template *ngIf="product.promotional_price > 0; then saleOn; else saleOff">
+              </ng-template>
 
-          <p>Detalhes:</p>
-          <hr>
-          <p>{{ product.description }}</p>
+              <ng-template #saleOn>
+                <strong>{{ product.promotional_price | currency:'BRL' }}</strong>
+                &nbsp;&nbsp;
+                <span class="opacity-5 text-line-through">
+                  {{ product.normal_price | currency:'BRL' }}
+                </span>
+              </ng-template>
+
+              <ng-template #saleOff>
+                <strong>{{ product.normal_price | currency:'BRL' }}</strong>
+              </ng-template>
+            </h4>
+
+            <p class="opacity-5 margin-0"><strong>Detalhes:</strong></p>
+            <hr class="opacity-5 mt-0">
+            <p class="description opacity-5">{{ product.description }}</p>
+          </div>
 
           <div class="display-flex justify-space-around align-items-center">
-            <app-counter-input></app-counter-input>
+            <app-counter-input [disabled]="product.stock <= 0" [max]="product.stock"
+              [min]="product.stock <= 0 ? 0 : 1"></app-counter-input>
 
-            <div>
-              <button mat-raised-button color="primary">Adicionar ao carrinho</button>
+            <div class="btn-container">
+              <button class="height-100" [disabled]="product.stock <= 0"
+                mat-raised-button color="primary">
+                {{ product.stock > 0 ? 'Adicionar ao carrinho' : 'Estoque indisponível' }}
+              </button>
             </div>
           </div>
         </div>

@@ -1,13 +1,16 @@
 frontend/node_modules
+frontend/dist
 frontend/.angular
 frontend/.browserslistrc
 frontend/.editorconfig
 
 backend/node_modules
+backend/dist
+backend/public
 backend/.editorconfig
 backend/.eslintignore
 backend/.eslintrc.json
 backend/prettier.config.js
-backend/src/.dbconfig.ts
+backend/src/database/*.sqlite
 
 .vscode

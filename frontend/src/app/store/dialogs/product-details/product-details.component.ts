@@ -1,18 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Product } from 'src/app/core/models';
+
+import { ProductsService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit {
-  @Input() product: Product | null = null;
+export class ProductDetailsComponent {
+  @Input() product!: Product;
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService
+  ) {}
 
-  ngOnInit(): void {
+  getCompleteImgPath(imgPath: string): string {
+    return this.productsService.completeImgPath(imgPath);
   }
-
 }

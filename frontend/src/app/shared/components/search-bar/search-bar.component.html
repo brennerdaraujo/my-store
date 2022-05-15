@@ -1,6 +1,16 @@
 <div class="container">
   <mat-form-field appearance="standard">
     <mat-label>{{ label }}</mat-label>
-    <input matInput (keydown.enter)="onSearchSomething($event)">
+    <input #searchInput matInput (keydown.enter)="onSearchSomething(searchInput.value)">
+
+    <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
+      (click)="onClearSearch(searchInput)" title="Limpar pesquisa">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button matSuffix mat-icon-button (click)="onSearchSomething(searchInput.value)"
+      title="Pesquisar">
+      <mat-icon>search</mat-icon>
+    </button>
   </mat-form-field>
 </div>

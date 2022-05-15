@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 import appDataSource from '../database/ormconfig';
 import { Product } from '../entities/Product';
@@ -18,6 +18,7 @@ interface IProduct {
 interface IGetProducts {
   skip: number;
   limit: number;
+  filter: string;
 }
 
 class ProductRepository {
@@ -63,11 +64,16 @@ class ProductRepository {
 
   async getProducts({
     skip,
-    limit
+    limit,
+    filter = ''
   }: IGetProducts): Promise<{ products: Product[]; total: number }> {
     const result = await this.repository.findAndCount({
+      relations: ['category'],
       skip,
-      take: limit
+      take: limit,
+      where: {
+        name: Like(`%${filter}%`)
+      }
     });
 
     return {
@@ -81,6 +87,7 @@ class ProductRepository {
     limit
   }: IGetProducts): Promise<{ products: Product[]; total: number }> {
     const result = await this.repository.findAndCount({
+      relations: ['category'],
       where: { status: true },
       skip,
       take: limit

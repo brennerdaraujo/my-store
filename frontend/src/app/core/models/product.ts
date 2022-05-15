@@ -2,14 +2,16 @@ import { Category } from './category';
 
 export interface Product {
   id: string;
-  name: string;
-  imgPath: string;
   category: Category;
+  category_id: string;
+  created_at: Date;
+  deleted_at: Date;
   description: string;
-  stock: number;
+  img_path: string;
+  name: string;
+  normal_price: number;
+  promotional_price: number;
   status: boolean;
-  price: {
-    promotional: number;
-    normal: number;
-  };
+  stock: number;
+  updated_at: Date;
 }

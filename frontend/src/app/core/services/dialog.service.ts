@@ -9,21 +9,28 @@ import { Observable } from 'rxjs';
 })
 export class DialogService {
 
-  private _dialogRef: MatDialogRef<any> | null = null;
+  private dialogRef: MatDialogRef<any> | null = null;
 
   constructor(
     public dialog: MatDialog
   ) {}
 
   open(dialog: ComponentType<any>, data?: any) {
-    return this._dialogRef = this.dialog.open(dialog, {
-      data
+    this.dialogRef = this.dialog.open(dialog, {
+      data,
+      disableClose: true
     });
+
+    return this.dialogRef;
+  }
+
+  close() {
+    this.dialogRef?.close(true);
   }
 
   afterClosed(): Observable<any> {
-    if (this._dialogRef)
-      return this._dialogRef.afterClosed();
+    if (this.dialogRef)
+      return this.dialogRef.afterClosed();
 
     return new Observable();
   }

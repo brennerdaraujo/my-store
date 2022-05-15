@@ -1,14 +1,9 @@
 import { DataSource } from 'typeorm';
 
-import { dbconfig } from '../.dbconfig';
-
 const appDataSource = new DataSource({
-  type: 'mysql',
-  host: dbconfig.host,
-  port: dbconfig.port,
-  username: dbconfig.username,
-  password: dbconfig.password,
-  database: dbconfig.database,
+  type: 'sqlite',
+  database: './src/database/database.sqlite',
+  migrations: ['./src/database/migrations/**.ts'],
   entities: ['src/entities/*.ts']
 });
 

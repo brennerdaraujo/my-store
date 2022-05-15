@@ -1,7 +1,11 @@
 mat-card {
   cursor: pointer;
-  height: 400px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+mat-card > img {
+  object-fit: contain;
 }

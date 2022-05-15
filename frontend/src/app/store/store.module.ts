@@ -1,34 +1,39 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { StoreRoutingModule } from './store-routing.module';
-import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
+import { StoreRoutingModule } from './store-routing.module';
 
-import { ProductsListComponent } from './pages/products-list/products-list.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ProductDetailsComponent } from './dialogs/product-details/product-details.component';
+import { ProductCardComponent } from './components';
+
+import { ProductDetailsComponent } from './dialogs';
+
+import { ProductsListComponent } from './pages';
 
 @NgModule({
   declarations: [
-    ProductsListComponent,
     ProductCardComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductsListComponent
   ],
   imports: [
-    StoreRoutingModule,
-    SharedModule,
-    CoreModule,
     CommonModule,
+    CoreModule,
+    MatButtonModule,
     MatCardModule,
     MatDialogModule,
     MatIconModule,
-    MatButtonModule
-  ],
-  providers: []
+    MatPaginatorModule,
+    MatToolbarModule,
+    SharedModule,
+    StoreRoutingModule,
+  ]
 })
 export class StoreModule { }

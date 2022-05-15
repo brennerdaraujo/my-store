@@ -76,11 +76,11 @@ productsAdminRoutes.delete('/:id', async (req, res) => {
 });
 
 productsAdminRoutes.get('/', async (req, res) => {
-  const { skip, limit } = req.query;
+  const { skip, limit, filter } = req.query;
 
   const getProductsService = new GetProductsService();
 
-  const result = await getProductsService.execute({ skip, limit });
+  const result = await getProductsService.execute({ skip, limit, filter });
 
   return res.json(result);
 });

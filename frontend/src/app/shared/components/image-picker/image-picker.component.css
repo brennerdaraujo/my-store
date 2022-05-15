@@ -1,0 +1,9 @@
+.card-error {
+  border: 0.2px solid red;
+}
+
+.product-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}

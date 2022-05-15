@@ -1,8 +1,13 @@
-<mat-toolbar color="primary">
-  <span>{{ title }}</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-  </button>
+<mat-toolbar color="primary" class="display-flex justify-space-between">
+  <div class="display-flex align-items-center">
+    <img *ngIf="showLogo" src="../../../../assets/logo_white.png" class="logo">
+    <span>{{ title }}</span>
+  </div>
+
+  <ng-container *ngFor="let button of buttons">
+    <button mat-raised-button (click)="button.onClick()">
+      {{ button.label }}
+      <mat-icon *ngIf="button.icon">{{ button.icon }}</mat-icon>
+    </button>
+  </ng-container>
 </mat-toolbar>

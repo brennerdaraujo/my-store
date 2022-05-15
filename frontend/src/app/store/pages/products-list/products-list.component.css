@@ -1,10 +1,28 @@
 .products-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  max-width: 880px;
 }
 
 .products-container > .product-container {
-  width: 20%;
+  width: 200px;
   margin: 10px;
+}
+
+@media screen and (max-width: 880px) {
+  .products-container {
+    max-width: 660px;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .products-container {
+    max-width: 440px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .products-container {
+    max-width: 220px;
+  }
 }

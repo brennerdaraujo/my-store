@@ -1,10 +1,8 @@
-mat-dialog-content {
-  width: 70vw;
-  max-height: 90vh;
+.base64img-msg-error {
+  font-size: 75%;
+  padding-top: 5px;
 }
 
-.product-img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
+mat-slide-toggle {
+  margin-left: 20px;
 }
