@@ -1,4 +1,4 @@
-import { unlink } from 'fs/promises';
+import fs from 'fs';
 
 import { productImg } from '../consts';
 
@@ -9,7 +9,7 @@ class RemoveProductImgService {
     const localImgPath = `${productImg.path.local}/${imgName}`;
 
     try {
-      await unlink(localImgPath);
+      await fs.promises.unlink(localImgPath);
     } catch (error) {
       console.log('RemoveProductImgService', error);
     }

@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises';
+import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 
 import { productImg } from '../consts';
@@ -8,7 +8,7 @@ class SaveProductImgService {
     const imgName = `${uuid()}.jpg`;
     const imgPath = `${productImg.path.local}/${imgName}`;
 
-    await writeFile(imgPath, base64Img, {
+    await fs.promises.writeFile(imgPath, base64Img, {
       encoding: 'base64'
     });
 
