@@ -32,6 +32,10 @@ Veja abaixo os prints das telas disponíveis no sistema:
 
 ## Dentro do diretório backend, execute os seguintes comandos:
 
+- ### Comando que instala as dependências necessárias do projeto
+        npm install
+<br>
+
 - ### Comando que executa as migrations que irão criar as tabelas do banco de dados
         npm run migrations
 <br>
@@ -45,6 +49,10 @@ Veja abaixo os prints das telas disponíveis no sistema:
 <br>
 
 ## Dentro do diretório frontend, execute o seguinte comando:
+
+- ### Comando que instala as dependências necessárias do projeto
+        npm install
+<br>
 
 - ### Comando que inicia o sistema de frontend na porta 4200. Para que o frontend funcione corretamente, o servidor de backend deverá estar funcionando, para que haja uma conexão entre os dois. 
         npm start
