@@ -120,7 +120,8 @@ O Swagger estará disponível através do servidor de backend, na rota /docs. Ex
   - ``TypeORM``
 - Banco de dados:
   - ``SQLite``
-  
+<br><br>
+
 ## Pessoas Desenvolvedoras do Projeto
 
 <a href="https://www.linkedin.com/in/brenner-de-ara%C3%BAjo-rodrigues-barbosa-b96a086b/">
