@@ -14,4 +14,6 @@ backend/prettier.config.js
 backend/src/database/*.sqlite
 backend/src/swagger/swagger_output.json
 
+prints/
+
 .vscode
