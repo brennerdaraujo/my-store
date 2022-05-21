@@ -1,5 +1,8 @@
 import express from 'express';
+
 import 'express-async-errors';
+// eslint-disable-next-line import-helpers/order-imports
+import { port } from './consts';
 
 import './database';
 
@@ -19,6 +22,6 @@ app.use(express.json({ limit: '5mb' }));
 app.use(routes);
 app.use(handleErrors);
 
-app.listen(3333, () => {
-  console.log('Server is running on port 3333');
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

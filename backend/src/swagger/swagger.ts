@@ -1,3 +1,7 @@
+import { hostname } from 'os';
+
+import { port } from '../consts';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const swaggerAutogen = require('swagger-autogen')();
 
@@ -8,7 +12,7 @@ const doc = {
     title: 'My Store API',
     description: 'API simples que visa abastecer um sistema de e-commerce.'
   },
-  host: 'localhost:3333',
+  host: `${hostname()}:${port}`,
   schemes: ['http']
 };
 
