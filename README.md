@@ -124,7 +124,7 @@ O Swagger estará disponível através do servidor de backend, na rota /docs. Ex
 
 ## Pessoas Desenvolvedoras do Projeto
 
-<a href="https://www.linkedin.com/in/brenner-de-ara%C3%BAjo-rodrigues-barbosa-b96a086b/">
+<a href="https://www.linkedin.com/in/brenner-barbosa/">
     <img src="./resources/devs/brenner-de-araujo.jpg" title="Brenner de Araújo" width="150"/>
 </a>
 <br><br>
